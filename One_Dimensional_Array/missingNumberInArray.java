@@ -1,3 +1,6 @@
+// Time Complexity : O(n)
+// Space Complexity: O(1)
+
 public class missingNumberInArray {
     public static void main(String[] args) {
         int [] arr = {1,2,4,7,6,5};
