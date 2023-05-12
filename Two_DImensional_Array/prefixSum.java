@@ -1,3 +1,5 @@
+package Two_Dimensional_Array;
+
 import java.util.*;
 import java.io.*;
 // time complexity : O(m * n)
