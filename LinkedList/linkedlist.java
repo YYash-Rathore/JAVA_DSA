@@ -58,6 +58,71 @@ class LinkedList {
         // temp.next = newNode;
     }
 
+    // Implementation of deletion of a node in a Linked List
+    public void deleteNode(int pos){
+        // Linked list is empty
+        if(head == null){
+            return;
+        }
+        
+        Node temp = head;
+        if(pos == 0){
+            head = temp.next;
+            return;
+        }
+        else{
+            for(int i = 0; i< pos-1 && temp != null; i++){
+                temp = temp.next;
+            }
+            if(temp == null && temp.next == null){
+                return;
+            }
+            else{
+                temp.next = temp.next.next;
+                return;
+            }
+        }
+    }
+
+    // Implementation of reversal of nodes in a linked list
+    public void reversell(){
+        Node current = head;
+        Node next = null;
+        Node prev = null;
+
+        while (current!=null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+        return;
+    }
+
+    // Reversal using Recursion
+    public void reverseRec(Node current, Node prev){
+        if(current.next == null){
+            head = current;
+            current.next = prev;
+            return;
+        }
+        Node nextPtr = current.next;
+        current.next = prev;
+        reverseRec(nextPtr, current);
+    }
+
+    // Implementation to find the middle element in a linked list
+    public void middleNode(){
+        Node slow = head;
+        Node fast = head;
+        while(fast != null && fast.next !=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        System.out.println("Middle Element is : "+slow.data);
+    }
+
     // display all the nodes after the insertion
     public void printNodes(){
         Node current = head;
@@ -68,16 +133,40 @@ class LinkedList {
         }
     }
 
+    // Implementation of detectng loops in a linked list
+    // Floyd's Cycle Detection Algorithm
+    public void detectLoop(){
+        Node slow = head;
+        Node fast = head;
+        int flag = 0;
+        while(fast != null && fast.next!= null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                flag = 1;
+                break;
+            }
+        }
+        if(flag ==1){
+            System.out.println("Loop Detected");
+        }
+        else{
+            System.out.println("No Loop Detected");
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList llist = new LinkedList();
 
         // function calling
         llist.insertAtEnd(2);
         llist.insertAtEnd(4);
-        llist.insertAtEnd(8);
+        llist.insertAtEnd(52);
         llist.insertAtEnd(10);
         llist.insertAtEnd(15);
         llist.insertAtEnd(19);
+        llist.insertAtEnd(20);
+        llist.insertAtEnd(30);
         System.out.println("Linked List after successful insertion of all the nodes:");
         llist.printNodes();
         System.out.println();
@@ -90,5 +179,26 @@ class LinkedList {
         llist.insertAfterNode(llist.head.next.next, 9);
         System.out.println("Linked List after successful insertion after any node");
         llist.printNodes();
+        System.out.println();
+
+        llist.deleteNode(1);
+        System.out.println("Linked List after sucessful deletion of a node");
+        llist.printNodes();
+        System.out.println();
+
+        llist.reversell();
+        System.out.println("Linked List after reversal");
+        llist.printNodes();
+        System.out.println();
+
+        llist.middleNode();
+
+        // creating a circular linked list
+        // Node temp = llist.head;
+        // while(temp.next != null){
+        //     temp = temp.next;
+        // }
+        // temp.next = llist.head;
+        llist.detectLoop();
     }
 }
